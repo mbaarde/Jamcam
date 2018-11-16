@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "174938168844",
+    "firebase_url": "https://mlkitdemo-f4cb7.firebaseio.com",
+    "project_id": "mlkitdemo-f4cb7",
+    "storage_bucket": "mlkitdemo-f4cb7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:174938168844:android:80a47521a543eeb8",
+        "android_client_info": {
+          "package_name": "com.example.user.jamcam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "174938168844-nma899caeb1501cehpp7fc5moauvuagm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.user.jamcam",
+            "certificate_hash": "4a199969b698ec6f59ca6ecc2b9629b5be590576"
+          }
+        },
+        {
+          "client_id": "174938168844-jji17krgcm1tp0eushu4nqlil0n6hl5i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLADrpQo86nriCDGF7giYf0g0j63aCx1A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "174938168844-jji17krgcm1tp0eushu4nqlil0n6hl5i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
