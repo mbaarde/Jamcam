@@ -1,11 +1,9 @@
 package com.example.user.jamcam;
 
 import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
-import android.support.v4.util.Consumer;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -61,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         waitingDialog = new SpotsDialog.Builder()
                 .setContext(this)
-                .setMessage("Please waiting...")
+                .setMessage("Processing image...")
                 .setCancelable(false).build();
 
         cameraView.addCameraKitListener(new CameraKitEventListener() {
@@ -101,8 +99,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-
     private void runDetector(Bitmap bitmap) {
 
         final FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
@@ -110,30 +106,30 @@ public class MainActivity extends AppCompatActivity {
         new InternetCheck(new InternetCheck.Consumer() {
             @Override
             public void accept(boolean internet) {
-                if(internet){
-                    //If have internet we will use Cloud
-                    FirebaseVisionCloudDetectorOptions options =
-                            new FirebaseVisionCloudDetectorOptions.Builder()
-                            .setMaxResults(1) //Get 1 result with highest confidence threshold
-                            .build();
-                    FirebaseVisionCloudLabelDetector detector = FirebaseVision.getInstance().getVisionCloudLabelDetector(options);
-
-                    detector.detectInImage(image)
-                            .addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionCloudLabel>>() {
-                                @Override
-                                public void onSuccess(List<FirebaseVisionCloudLabel> firebaseVisionCloudLabels) {
-                                    processDataResultCloud(firebaseVisionCloudLabels);
-
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d("EDMTERROR",e.getMessage());
-                                }
-                            });
-                }
-                else{
+//                if(internet){
+//                    //If have internet we will use Cloud
+//                    FirebaseVisionCloudDetectorOptions options =
+//                            new FirebaseVisionCloudDetectorOptions.Builder()
+//                            .setMaxResults(1) //Get 1 result with highest confidence threshold
+//                            .build();
+//                    FirebaseVisionCloudLabelDetector detector = FirebaseVision.getInstance().getVisionCloudLabelDetector(options);
+//
+//                    detector.detectInImage(image)
+//                            .addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionCloudLabel>>() {
+//                                @Override
+//                                public void onSuccess(List<FirebaseVisionCloudLabel> firebaseVisionCloudLabels) {
+//                                    processDataResultCloud(firebaseVisionCloudLabels);
+//
+//                                }
+//                            })
+//                            .addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//                                    Log.d("EDMTERROR",e.getMessage());
+//                                }
+//                            });
+//                }
+//                else{
                     FirebaseVisionLabelDetectorOptions options =
                             new FirebaseVisionLabelDetectorOptions.Builder()
                                     .setConfidenceThreshold(0.8f) //Get highest confidence threshold
@@ -153,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                                     Log.d("EDMTERROR",e.getMessage());
                                 }
                             });
-                }
+//                }
             }
 
         });
