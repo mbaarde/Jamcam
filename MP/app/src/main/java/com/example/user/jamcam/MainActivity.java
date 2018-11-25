@@ -1,6 +1,8 @@
 package com.example.user.jamcam;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +29,7 @@ import com.wonderkiln.camerakit.CameraKitImage;
 import com.wonderkiln.camerakit.CameraKitVideo;
 import com.wonderkiln.camerakit.CameraView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import dmax.dialog.SpotsDialog;
@@ -99,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void runDetector(Bitmap bitmap) {
+    private void runDetector(final Bitmap bitmap) {
 
         final FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
 
@@ -140,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionLabel>>() {
                                 @Override
                                 public void onSuccess(List<FirebaseVisionLabel> firebaseVisionLabels) {
-                                    processDataResult(firebaseVisionLabels);
+                                    processDataResult(firebaseVisionLabels, bitmap);
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -165,13 +168,26 @@ public class MainActivity extends AppCompatActivity {
         waitingDialog.dismiss();
     }
 
-    private void processDataResult(List<FirebaseVisionLabel>  firebaseVisionLabels) {
+    private void processDataResult(List<FirebaseVisionLabel>  firebaseVisionLabels, Bitmap bitmap) {
+        String detection = "";
         for(FirebaseVisionLabel label : firebaseVisionLabels)
         {
             Toast.makeText(this,"Device result: "+ label.getLabel(),Toast.LENGTH_SHORT).show();
+            detection = detection + label.getLabel();
         }
 
         if(waitingDialog.isShowing())
         waitingDialog.dismiss();
+
+        encodeBitmap(bitmap, detection);
+    }
+
+    public void encodeBitmap(Bitmap bitmap, String detection){  // your bitmap
+        ByteArrayOutputStream bs = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 40, bs);
+        Intent intent = new Intent(MainActivity.this, ProcessedActivity.class);
+        intent.putExtra("byteArray", bs.toByteArray());
+        intent.putExtra("detections", detection);
+        startActivity(intent);
     }
 }
