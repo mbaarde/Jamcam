@@ -32,9 +32,13 @@ public class MenuActivity extends AppCompatActivity{
             }
         });
 
-
-
-
+        galleryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ImageList.class);
+                MenuActivity.this.startActivity(intent);
+            }
+        });
 
     }
 }

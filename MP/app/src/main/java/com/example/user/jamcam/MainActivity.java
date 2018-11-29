@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
         cameraView = (CameraView)findViewById(R.id.camera_view);
         btnDetect = (Button)findViewById(R.id.btn_detect);
 

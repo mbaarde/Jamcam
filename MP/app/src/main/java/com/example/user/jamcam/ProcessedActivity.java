@@ -3,8 +3,8 @@ package com.example.user.jamcam;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,11 +13,10 @@ import android.widget.Toast;
 
 public class ProcessedActivity extends AppCompatActivity {
 
+    public static SQLiteHelper sqLiteHelper;
     private ImageView imageView;
     private TextView textView;
     private Button button;
-
-    public static SQLiteHelper sqLiteHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +29,9 @@ public class ProcessedActivity extends AppCompatActivity {
 
         sqLiteHelper = new SQLiteHelper(this, "ImageDB.sqlite", null, 1);
 
-        sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS IMAGES(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, price VARCHAR, image BLOB)");
+        sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS IMAGES(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, image BLOB)");
 
-        if(getIntent().hasExtra("byteArray")) {
+        if (getIntent().hasExtra("byteArray")) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(
                     getIntent().getByteArrayExtra("byteArray"), 0, getIntent().getByteArrayExtra("byteArray").length);
             imageView.setImageBitmap(bitmap);
@@ -44,24 +43,20 @@ public class ProcessedActivity extends AppCompatActivity {
             public void onClick(View v) {
                 byte[] bytearray = getIntent().getByteArrayExtra("byteArray");
 
-                try{
-                    try{
-                        sqLiteHelper.insertData(
-                                getIntent().getStringExtra("detections"),
-                                bytearray
-                        );
-                        Toast.makeText(getApplicationContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent (ProcessedActivity.this, ImageList.class);
-                        startActivity(intent);
-                    }
-                    catch (Exception e){
-                        e.printStackTrace();
-                    }
+                try {
+                    sqLiteHelper.insertData(
+                            getIntent().getStringExtra("detections"),
+                            bytearray
+                    );
                     Toast.makeText(getApplicationContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
-                }
-                catch (Exception e){
+                    Intent intent = new Intent(ProcessedActivity.this, ImageList.class);
+                    startActivity(intent);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
+                Toast.makeText(getApplicationContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
+
+
             }
         });
     }
