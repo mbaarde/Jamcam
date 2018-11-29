@@ -1,16 +1,23 @@
 package com.example.user.jamcam;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ProcessedActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private TextView textView;
+    private Button button;
+
+    public static SQLiteHelper sqLiteHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +26,11 @@ public class ProcessedActivity extends AppCompatActivity {
 
         imageView = findViewById(R.id.imageView2);
         textView = findViewById(R.id.textView);
+        button = findViewById(R.id.button);
+
+        sqLiteHelper = new SQLiteHelper(this, "FoodDB.sqlite", null, 1);
+
+        sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS FOOD(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, price VARCHAR, image BLOB)");
 
         if(getIntent().hasExtra("byteArray")) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(
@@ -26,6 +38,33 @@ public class ProcessedActivity extends AppCompatActivity {
             imageView.setImageBitmap(bitmap);
             textView.setText(getIntent().getStringExtra("detections"));
         }
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                byte[] bytearray = getIntent().getByteArrayExtra("byteArray");
+
+                try{
+                    try{
+                        sqLiteHelper.insertData(
+                                getIntent().getStringExtra("detections"),
+                                "",
+                                bytearray
+                        );
+                        Toast.makeText(getApplicationContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent (ProcessedActivity.this, ImageList.class);
+                        startActivity(intent);
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(getApplicationContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 
