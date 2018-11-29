@@ -6,11 +6,11 @@
     >
 
     <GridView
+        android:id="@+id/gridView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/gridView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
         android:columnWidth="120dp"
         android:gravity="center"
         android:numColumns="auto_fit" />
