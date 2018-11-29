@@ -26,7 +26,7 @@ public class LoadingActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(LoadingActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoadingActivity.this, MenuActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out); //Enables our fading transition
                 finish();

@@ -29,6 +29,7 @@
                 android:value="label" />
         </activity>
         <activity android:name=".ProcessedActivity"></activity>
+        <activity android:name=".MenuActivity"></activity>
     </application>
 
 </manifest>
