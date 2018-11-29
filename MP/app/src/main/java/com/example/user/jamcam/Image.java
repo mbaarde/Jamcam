@@ -1,18 +1,12 @@
 package com.example.user.jamcam;
 
-/**
- * Created by Quoc Nguyen on 13-Dec-16.
- */
-
 public class Image {
     private int id;
     private String name;
-    private String price;
     private byte[] image;
 
-    public Image(String name, String price, byte[] image, int id) {
+    public Image(String name, byte[] image, int id) {
         this.name = name;
-        this.price = price;
         this.image = image;
         this.id = id;
     }
@@ -31,14 +25,6 @@ public class Image {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
     }
 
     public byte[] getImage() {

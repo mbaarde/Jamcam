@@ -12,10 +12,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by Quoc Nguyen on 13-Dec-16.
- */
-
 public class ImageListAdapter extends BaseAdapter {
 
     private Context context;
@@ -45,7 +41,7 @@ public class ImageListAdapter extends BaseAdapter {
 
     private class ViewHolder{
         ImageView imageView;
-        TextView txtName, txtPrice;
+        TextView txtName;
     }
 
     @Override
@@ -59,7 +55,6 @@ public class ImageListAdapter extends BaseAdapter {
             row = inflater.inflate(layout, null);
 
             holder.txtName = (TextView) row.findViewById(R.id.txtName);
-            holder.txtPrice = (TextView) row.findViewById(R.id.txtPrice);
             holder.imageView = (ImageView) row.findViewById(R.id.imgFood);
             row.setTag(holder);
         }
@@ -70,7 +65,6 @@ public class ImageListAdapter extends BaseAdapter {
         Image image = foodsList.get(position);
 
         holder.txtName.setText(image.getName());
-        holder.txtPrice.setText(image.getPrice());
 
         byte[] foodImage = image.getImage();
         Bitmap bitmap = BitmapFactory.decodeByteArray(foodImage, 0, foodImage.length);

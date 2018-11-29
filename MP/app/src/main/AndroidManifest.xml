@@ -30,6 +30,7 @@
         </activity>
         <activity android:name=".ProcessedActivity"></activity>
         <activity android:name=".MenuActivity"></activity>
+        <activity android:name=".ImageList"></activity>
     </application>
 
 </manifest>

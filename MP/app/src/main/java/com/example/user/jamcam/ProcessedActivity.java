@@ -28,9 +28,9 @@ public class ProcessedActivity extends AppCompatActivity {
         textView = findViewById(R.id.textView);
         button = findViewById(R.id.button);
 
-        sqLiteHelper = new SQLiteHelper(this, "FoodDB.sqlite", null, 1);
+        sqLiteHelper = new SQLiteHelper(this, "ImageDB.sqlite", null, 1);
 
-        sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS FOOD(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, price VARCHAR, image BLOB)");
+        sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS IMAGES(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, price VARCHAR, image BLOB)");
 
         if(getIntent().hasExtra("byteArray")) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(
@@ -48,7 +48,6 @@ public class ProcessedActivity extends AppCompatActivity {
                     try{
                         sqLiteHelper.insertData(
                                 getIntent().getStringExtra("detections"),
-                                "",
                                 bytearray
                         );
                         Toast.makeText(getApplicationContext(), "Added successfully!", Toast.LENGTH_SHORT).show();

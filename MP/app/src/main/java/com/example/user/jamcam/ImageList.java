@@ -29,10 +29,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-/**
- * Created by Quoc Nguyen on 13-Dec-16.
- */
-
 public class ImageList extends AppCompatActivity {
 
     GridView gridView;
@@ -43,23 +39,22 @@ public class ImageList extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.food_list_activity);
+        setContentView(R.layout.image_list_activity);
 
         gridView = (GridView) findViewById(R.id.gridView);
         list = new ArrayList<>();
-        adapter = new ImageListAdapter(this, R.layout.food_items, list);
+        adapter = new ImageListAdapter(this, R.layout.image_items, list);
         gridView.setAdapter(adapter);
 
         // get all data from sqlite
-        Cursor cursor = ProcessedActivity.sqLiteHelper.getData("SELECT * FROM FOOD");
+        Cursor cursor = ProcessedActivity.sqLiteHelper.getData("SELECT * FROM IMAGES");
         list.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String name = cursor.getString(1);
-            String price = cursor.getString(2);
-            byte[] image = cursor.getBlob(3);
+            byte[] image = cursor.getBlob(2);
 
-            list.add(new Image(name, price, image, id));
+            list.add(new Image(name, image, id));
         }
         adapter.notifyDataSetChanged();
 
@@ -76,7 +71,7 @@ public class ImageList extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int item) {
                         if (item == 0) {
                             // update
-                            Cursor c = ProcessedActivity.sqLiteHelper.getData("SELECT id FROM FOOD");
+                            Cursor c = ProcessedActivity.sqLiteHelper.getData("SELECT id FROM IMAGES");
                             ArrayList<Integer> arrID = new ArrayList<Integer>();
                             while (c.moveToNext()){
                                 arrID.add(c.getInt(0));
@@ -86,7 +81,7 @@ public class ImageList extends AppCompatActivity {
 
                         } else {
                             // delete
-                            Cursor c = ProcessedActivity.sqLiteHelper.getData("SELECT id FROM FOOD");
+                            Cursor c = ProcessedActivity.sqLiteHelper.getData("SELECT id FROM IMAGES");
                             ArrayList<Integer> arrID = new ArrayList<Integer>();
                             while (c.moveToNext()){
                                 arrID.add(c.getInt(0));
@@ -105,7 +100,7 @@ public class ImageList extends AppCompatActivity {
     private void showDialogUpdate(Activity activity, final int position){
 
         final Dialog dialog = new Dialog(activity);
-        dialog.setContentView(R.layout.update_food_activity);
+        dialog.setContentView(R.layout.update_image_activity);
         dialog.setTitle("Update");
 
         imageViewFood = (ImageView) dialog.findViewById(R.id.imageViewFood);
@@ -182,15 +177,14 @@ public class ImageList extends AppCompatActivity {
 
     private void updateFoodList(){
         // get all data from sqlite
-        Cursor cursor = ProcessedActivity.sqLiteHelper.getData("SELECT * FROM FOOD");
+        Cursor cursor = ProcessedActivity.sqLiteHelper.getData("SELECT * FROM IMAGES");
         list.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String name = cursor.getString(1);
-            String price = cursor.getString(2);
-            byte[] image = cursor.getBlob(3);
+            byte[] image = cursor.getBlob(2);
 
-            list.add(new Image(name, price, image, id));
+            list.add(new Image(name, image, id));
         }
         adapter.notifyDataSetChanged();
     }

@@ -6,10 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 
-/**
- * Created by Quoc Nguyen on 13-Dec-16.
- */
-
 public class SQLiteHelper extends SQLiteOpenHelper {
 
     public SQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -21,30 +17,28 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         database.execSQL(sql);
     }
 
-    public void insertData(String name, String price, byte[] image){
+    public void insertData(String name, byte[] image){
         SQLiteDatabase database = getWritableDatabase();
-        String sql = "INSERT INTO FOOD VALUES (NULL, ?, ?, ?)";
+        String sql = "INSERT INTO IMAGES VALUES (NULL, ?, ?, ?)";
 
         SQLiteStatement statement = database.compileStatement(sql);
         statement.clearBindings();
 
         statement.bindString(1, name);
-        statement.bindString(2, price);
-        statement.bindBlob(3, image);
+        statement.bindBlob(2, image);
 
         statement.executeInsert();
     }
 
-    public void updateData(String name, String price, byte[] image, int id) {
+    public void updateData(String name, byte[] image, int id) {
         SQLiteDatabase database = getWritableDatabase();
 
-        String sql = "UPDATE FOOD SET name = ?, price = ?, image = ? WHERE id = ?";
+        String sql = "UPDATE IMAGES SET name = ?, image = ? WHERE id = ?";
         SQLiteStatement statement = database.compileStatement(sql);
 
         statement.bindString(1, name);
-        statement.bindString(2, price);
-        statement.bindBlob(3, image);
-        statement.bindDouble(4, (double)id);
+        statement.bindBlob(2, image);
+        statement.bindDouble(3, (double)id);
 
         statement.execute();
         database.close();
@@ -53,7 +47,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public  void deleteData(int id) {
         SQLiteDatabase database = getWritableDatabase();
 
-        String sql = "DELETE FROM FOOD WHERE id = ?";
+        String sql = "DELETE FROM IMAGES WHERE id = ?";
         SQLiteStatement statement = database.compileStatement(sql);
         statement.clearBindings();
         statement.bindDouble(1, (double)id);
