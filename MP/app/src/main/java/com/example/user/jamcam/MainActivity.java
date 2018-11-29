@@ -186,8 +186,8 @@ public class MainActivity extends AppCompatActivity {
         ByteArrayOutputStream bs = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 40, bs);
         Intent intent = new Intent(MainActivity.this, ProcessedActivity.class);
-        intent.putExtra("byteArray", bs.toByteArray());
-        intent.putExtra("detections", detection);
+        intent.putExtra("byteArray", bs.toByteArray()); //Image
+        intent.putExtra("detections", detection); //Description of image
         startActivity(intent);
     }
 }
