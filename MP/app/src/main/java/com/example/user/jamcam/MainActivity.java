@@ -198,4 +198,5 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("detections", detection); //Description of image
         startActivity(intent);
     }
+
 }
