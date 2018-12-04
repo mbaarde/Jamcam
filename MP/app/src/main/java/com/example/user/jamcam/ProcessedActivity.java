@@ -38,6 +38,10 @@ public class ProcessedActivity extends AppCompatActivity {
             textView.setText(getIntent().getStringExtra("detections"));
         }
 
+        if(getIntent().hasExtra("hide")){
+            button.setVisibility(View.INVISIBLE);
+        }
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +55,7 @@ public class ProcessedActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ProcessedActivity.this, ImageList.class);
                     startActivity(intent);
+                    finish();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

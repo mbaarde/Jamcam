@@ -24,7 +24,7 @@
         android:layout_marginRight="33dp"
         android:text="Image name"
         android:textAlignment="center"
-        android:textColor="#0e11d1"
+        android:textColor="#08d0c1"
         android:textSize="17sp" />
 
 </RelativeLayout>
