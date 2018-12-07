@@ -14,6 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
         <activity
             android:name=".LoadingActivity"
             android:theme="@style/SplashTheme">
@@ -31,6 +34,11 @@
         <activity android:name=".ProcessedActivity"></activity>
         <activity android:name=".MenuActivity"></activity>
         <activity android:name=".ImageList"></activity>
+
+        <provider
+            android:authorities="com.facebook.app.FacebookContentProvider1172296292939102"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
     </application>
 
 </manifest>

@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,6 +26,14 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareDialog;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -37,13 +46,46 @@ public class ImageList extends AppCompatActivity {
     ArrayList<Image> list;
     ImageListAdapter adapter = null;
     ImageView imageViewFood;
+    ShareDialog shareDialog;
+    CallbackManager callbackManager;
 
     SQLiteHelper sqLiteHelper;
+
+//    Target target = new Target() {
+//        @Override
+//        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+//            SharePhoto sharePhoto = new SharePhoto.Builder()
+//                    .setBitmap(bitmap)
+//                    .build();
+//
+//            if(ShareDialog.canShow(SharePhotoContent.class))
+//            {
+//                SharePhotoContent content = new SharePhotoContent.Builder()
+//                        .addPhoto(sharePhoto)
+//                        .build();
+//                shareDialog.show(content);
+//            }
+//        }
+//
+//        @Override
+//        public void onBitmapFailed(Drawable errorDrawable) {
+//
+//        }
+//
+//        @Override
+//        public void onPrepareLoad(Drawable placeHolderDrawable) {
+//
+//        }
+//    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.image_list_activity);
+
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);
 
         sqLiteHelper = new SQLiteHelper(getApplicationContext(), "ImageDB.sqlite", null, 1);
 
@@ -106,11 +148,17 @@ public class ImageList extends AppCompatActivity {
                             showDialogDelete(arrID.get(position));
                         } else{
                             //show
-                            Intent intent = new Intent(ImageList.this, ProcessedActivity.class);
-                            intent.putExtra("byteArray", list.get(position).getImage());
-                            intent.putExtra("detections", list.get(position).getName()); //Description of image
-                            intent.putExtra("hide", true);
-                            startActivity(intent);
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(list.get(position).getImage(),0,list.get(position).getImage().length);
+                            SharePhoto photo = new SharePhoto.Builder()
+                                    .setBitmap(bitmap)
+                                    .build();
+
+                            SharePhotoContent photoContent = new SharePhotoContent.Builder()
+                                    .addPhoto(photo)
+                                    .build();
+
+                            if(shareDialog.canShow(SharePhotoContent.class))
+                                shareDialog.show(photoContent);
                         }
                     }
                 });
