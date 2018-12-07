@@ -128,7 +128,6 @@ public class ImageList extends AppCompatActivity {
 
         imageViewFood = (ImageView) dialog.findViewById(R.id.imageViewFood);
         final EditText edtName = (EditText) dialog.findViewById(R.id.edtName);
-        final EditText edtPrice = (EditText) dialog.findViewById(R.id.edtPrice);
         Button btnUpdate = (Button) dialog.findViewById(R.id.btnUpdate);
 
         // set width for dialog
@@ -138,37 +137,24 @@ public class ImageList extends AppCompatActivity {
         dialog.getWindow().setLayout(width, height);
         dialog.show();
 
-        imageViewFood.setOnClickListener(new View.OnClickListener() {
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // request photo library
-                ActivityCompat.requestPermissions(
-                        ImageList.this,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        888
-                );
+                try {
+                    sqLiteHelper.updateData(
+                            edtName.getText().toString().trim(),
+                            position
+                    );
+                    dialog.dismiss();
+                    Toast.makeText(getApplicationContext(), "Update successfully!!!", Toast.LENGTH_SHORT).show();
+                }
+                catch (Exception error) {
+                    Log.e("Update error", error.getMessage());
+                }
+                updateFoodList();
             }
         });
-
-//        btnUpdate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                try {
-//                    sqLiteHelper.updateData(
-//                            edtName.getText().toString().trim(),
-//                            edtPrice.getText().toString().trim(),
-//                            MainActivity.imageViewToByte(imageViewFood),
-//                            position
-//                    );
-//                    dialog.dismiss();
-//                    Toast.makeText(getApplicationContext(), "Update successfully!!!", Toast.LENGTH_SHORT).show();
-//                }
-//                catch (Exception error) {
-//                    Log.e("Update error", error.getMessage());
-//                }
-//                updateFoodList();
-//            }
-//        });
     }
 
     private void showDialogDelete(final int idFood) {
