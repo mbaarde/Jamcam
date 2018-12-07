@@ -180,8 +180,8 @@ public class MainActivity extends AppCompatActivity {
         String detection = "";
         for(FirebaseVisionLabel label : firebaseVisionLabels)
         {
-            Toast.makeText(this,"Device result: "+ label.getLabel(),Toast.LENGTH_SHORT).show();
-            detection = detection + " " + label.getLabel();
+//            Toast.makeText(this,"Device result: "+ label.getLabel(),Toast.LENGTH_SHORT).show();
+            detection = detection + ", " + label.getLabel();
         }
 
         if(waitingDialog.isShowing())

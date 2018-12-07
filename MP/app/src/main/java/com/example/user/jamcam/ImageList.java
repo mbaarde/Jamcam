@@ -25,6 +25,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -62,11 +64,22 @@ public class ImageList extends AppCompatActivity {
         }
         adapter.notifyDataSetChanged();
 
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //show
+                Intent intent = new Intent(ImageList.this, ProcessedActivity.class);
+                intent.putExtra("byteArray", list.get(position).getImage());
+                intent.putExtra("detections", list.get(position).getName()); //Description of image
+                intent.putExtra("hide", true);
+                startActivity(intent);
+            }
+        });
         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
-                CharSequence[] items = {"Update", "Delete"};
+                CharSequence[] items = {"Update", "Delete", "Show"};
                 AlertDialog.Builder dialog = new AlertDialog.Builder(ImageList.this);
 
                 dialog.setTitle("Choose an action");
@@ -83,7 +96,7 @@ public class ImageList extends AppCompatActivity {
                             // show dialog update at here
                             showDialogUpdate(ImageList.this, arrID.get(position));
 
-                        } else {
+                        } else if (item == 1){
                             // delete
                             Cursor c = sqLiteHelper.getData("SELECT id FROM IMAGES");
                             ArrayList<Integer> arrID = new ArrayList<Integer>();
@@ -91,6 +104,13 @@ public class ImageList extends AppCompatActivity {
                                 arrID.add(c.getInt(0));
                             }
                             showDialogDelete(arrID.get(position));
+                        } else{
+                            //show
+                            Intent intent = new Intent(ImageList.this, ProcessedActivity.class);
+                            intent.putExtra("byteArray", list.get(position).getImage());
+                            intent.putExtra("detections", list.get(position).getName()); //Description of image
+                            intent.putExtra("hide", true);
+                            startActivity(intent);
                         }
                     }
                 });
@@ -206,6 +226,15 @@ public class ImageList extends AppCompatActivity {
             return;
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    public void encodeBitmap(Bitmap bitmap){  // your bitmap
+        ByteArrayOutputStream bs = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 40, bs);
+        Intent intent = new Intent(ImageList.this, ProcessedActivity.class);
+        intent.putExtra("byteArray", bs.toByteArray()); //Image
+        intent.putExtra("detections", "from ImageList");
+        startActivity(intent);
     }
 
     @Override
