@@ -79,7 +79,7 @@ public class ImageList extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
-                CharSequence[] items = {"Update", "Delete", "Show"};
+                CharSequence[] items = {"Update", "Delete", "Share to Facebook"};
                 AlertDialog.Builder dialog = new AlertDialog.Builder(ImageList.this);
 
                 dialog.setTitle("Choose an action");
@@ -105,12 +105,7 @@ public class ImageList extends AppCompatActivity {
                             }
                             showDialogDelete(arrID.get(position));
                         } else{
-                            //show
-                            Intent intent = new Intent(ImageList.this, ProcessedActivity.class);
-                            intent.putExtra("byteArray", list.get(position).getImage());
-                            intent.putExtra("detections", list.get(position).getName()); //Description of image
-                            intent.putExtra("hide", true);
-                            startActivity(intent);
+                           Toast.makeText(getApplicationContext(), "Shared to Facebook", Toast.LENGTH_LONG);
                         }
                     }
                 });
