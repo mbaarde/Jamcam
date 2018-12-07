@@ -12,12 +12,12 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         super(context, name, factory, version);
     }
 
-    public void queryData(String sql){
+    public void queryData(String sql) {
         SQLiteDatabase database = getWritableDatabase();
         database.execSQL(sql);
     }
 
-    public void insertData(String name, byte[] image){
+    public void insertData(String name, byte[] image) {
         SQLiteDatabase database = getWritableDatabase();
         String sql = "INSERT INTO IMAGES VALUES (NULL, ?, ?)";
 
@@ -37,25 +37,25 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         SQLiteStatement statement = database.compileStatement(sql);
 
         statement.bindString(1, name);
-        statement.bindDouble(2, (double)id);
+        statement.bindDouble(2, (double) id);
 
         statement.execute();
         database.close();
     }
 
-    public  void deleteData(int id) {
+    public void deleteData(int id) {
         SQLiteDatabase database = getWritableDatabase();
 
         String sql = "DELETE FROM IMAGES WHERE id = ?";
         SQLiteStatement statement = database.compileStatement(sql);
         statement.clearBindings();
-        statement.bindDouble(1, (double)id);
+        statement.bindDouble(1, (double) id);
 
         statement.execute();
         database.close();
     }
 
-    public Cursor getData(String sql){
+    public Cursor getData(String sql) {
         SQLiteDatabase database = getReadableDatabase();
         return database.rawQuery(sql, null);
     }

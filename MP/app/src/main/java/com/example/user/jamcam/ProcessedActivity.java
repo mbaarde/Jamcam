@@ -38,7 +38,7 @@ public class ProcessedActivity extends AppCompatActivity {
             textView.setText(getIntent().getStringExtra("detections"));
         }
 
-        if(getIntent().hasExtra("hide")){
+        if (getIntent().hasExtra("hide")) {
             button.setVisibility(View.INVISIBLE);
         }
 
@@ -48,20 +48,16 @@ public class ProcessedActivity extends AppCompatActivity {
                 byte[] bytearray = getIntent().getByteArrayExtra("byteArray");
 
                 try {
-                    sqLiteHelper.insertData(
+                    sqLiteHelper.insertD ata(
                             getIntent().getStringExtra("detections"),
                             bytearray
                     );
                     Toast.makeText(getApplicationContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ProcessedActivity.this, ImageList.class);
                     startActivity(intent);
-                    finish();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                Toast.makeText(getApplicationContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
-
-
             }
         });
     }

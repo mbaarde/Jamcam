@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class ImageListAdapter extends BaseAdapter {
 
     private Context context;
-    private  int layout;
+    private int layout;
     private ArrayList<Image> foodsList;
 
     public ImageListAdapter(Context context, int layout, ArrayList<Image> foodsList) {
@@ -39,26 +39,20 @@ public class ImageListAdapter extends BaseAdapter {
         return position;
     }
 
-    private class ViewHolder{
-        ImageView imageView;
-        TextView txtName;
-    }
-
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
 
         View row = view;
         ViewHolder holder = new ViewHolder();
 
-        if(row == null){
+        if (row == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(layout, null);
 
             holder.txtName = (TextView) row.findViewById(R.id.txtName);
             holder.imageView = (ImageView) row.findViewById(R.id.imgFood);
             row.setTag(holder);
-        }
-        else {
+        } else {
             holder = (ViewHolder) row.getTag();
         }
 
@@ -71,5 +65,10 @@ public class ImageListAdapter extends BaseAdapter {
         holder.imageView.setImageBitmap(bitmap);
 
         return row;
+    }
+
+    private class ViewHolder {
+        ImageView imageView;
+        TextView txtName;
     }
 }
