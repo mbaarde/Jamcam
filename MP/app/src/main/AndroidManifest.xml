@@ -36,7 +36,7 @@
         <activity android:name=".ImageList"></activity>
 
         <provider
-            android:authorities="com.facebook.app.FacebookContentProvider1172296292939102"
+            android:authorities="com.facebook.app.FacebookContentProvider624541377960796"
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true"/>
     </application>

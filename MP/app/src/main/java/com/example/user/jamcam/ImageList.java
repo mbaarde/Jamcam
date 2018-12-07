@@ -121,7 +121,7 @@ public class ImageList extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
-                CharSequence[] items = {"Update", "Delete", "Show"};
+                CharSequence[] items = {"Update", "Delete", "Share to Facebook"};
                 AlertDialog.Builder dialog = new AlertDialog.Builder(ImageList.this);
 
                 dialog.setTitle("Choose an action");
@@ -195,7 +195,7 @@ public class ImageList extends AppCompatActivity {
                             position
                     );
                     dialog.dismiss();
-                    Toast.makeText(getApplicationContext(), "Update successfully!!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Update successful", Toast.LENGTH_SHORT).show();
                 }
                 catch (Exception error) {
                     Log.e("Update error", error.getMessage());
@@ -215,7 +215,7 @@ public class ImageList extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 try {
                     sqLiteHelper.deleteData(idFood);
-                    Toast.makeText(getApplicationContext(), "Delete successfully!!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Delete successful", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     Log.e("error", e.getMessage());
                 }

@@ -202,10 +202,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void processDataResult(List<FirebaseVisionLabel>  firebaseVisionLabels, Bitmap bitmap) {
         String detection = "";
+        int ctr = 0;
         for(FirebaseVisionLabel label : firebaseVisionLabels)
         {
 //            Toast.makeText(this,"Device result: "+ label.getLabel(),Toast.LENGTH_SHORT).show();
-            detection = detection + ", " + label.getLabel();
+            if(ctr > 0){
+                detection = detection + ", ";
+            }
+            detection = detection + label.getLabel();
+            ctr++;
+        }
+
+        if(detection.equals("")){
+            detection = "Image cannot be identified. Try again.";
         }
 
         if(waitingDialog.isShowing())
