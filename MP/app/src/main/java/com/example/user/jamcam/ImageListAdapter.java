@@ -64,7 +64,8 @@ public class ImageListAdapter extends BaseAdapter {
 
         Image image = foodsList.get(position);
 
-        holder.txtName.setText(image.getName());
+    //    holder.txtName.setText(image.getName());
+        holder.txtName.setVisibility(View.INVISIBLE);
 
         byte[] foodImage = image.getImage();
         Bitmap bitmap = BitmapFactory.decodeByteArray(foodImage, 0, foodImage.length);
