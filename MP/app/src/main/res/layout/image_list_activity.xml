@@ -14,5 +14,6 @@
         android:layout_marginTop="12dp"
         android:columnWidth="120dp"
         android:gravity="center"
-        android:numColumns="auto_fit" />
+        android:numColumns="auto_fit"
+        android:layout_alignParentLeft="true" />
 </RelativeLayout>

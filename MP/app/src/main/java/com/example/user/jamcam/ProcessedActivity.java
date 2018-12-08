@@ -48,13 +48,14 @@ public class ProcessedActivity extends AppCompatActivity {
                 byte[] bytearray = getIntent().getByteArrayExtra("byteArray");
 
                 try {
-                    sqLiteHelper.insertD ata(
+                    sqLiteHelper.insertData(
                             getIntent().getStringExtra("detections"),
                             bytearray
                     );
                     Toast.makeText(getApplicationContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ProcessedActivity.this, ImageList.class);
                     startActivity(intent);
+                    finish();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

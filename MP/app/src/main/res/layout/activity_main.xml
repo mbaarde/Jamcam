@@ -8,15 +8,18 @@
 
     <Button
         android:id="@+id/btn_detect"
-        android:text="DETECT"
+        android:layout_width="383dp"
+        android:layout_height="112dp"
         android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/camerabutton" />
 
     <com.wonderkiln.camerakit.CameraView
         android:id="@+id/camera_view"
         android:layout_above="@+id/btn_detect"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.wonderkiln.camerakit.CameraView>
+        android:layout_height="match_parent">
+
+    </com.wonderkiln.camerakit.CameraView>
 
 </RelativeLayout>
