@@ -26,7 +26,7 @@ public class MenuActivity extends AppCompatActivity{
         }
         ImageButton scanButton = findViewById(R.id.imageButton3);
         ImageButton galleryButton = findViewById(R.id.imageButton5);
-        ImageView imageView7 = findViewById(R.id.imageView7);
+//        ImageView imageView7 = findViewById(R.id.imageView7);
 
         scanButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -56,10 +56,10 @@ public class MenuActivity extends AppCompatActivity{
 
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-        ImageView imageView7 = findViewById(R.id.imageView7);
-        Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-        imageView7.setImageBitmap(bitmap);
-    }
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+//        super.onActivityResult(requestCode, resultCode, data);
+//        ImageView imageView7 = findViewById(R.id.imageView7);
+//        Bitmap bitmap = (Bitmap)data.getExtras().get("data");
+//        imageView7.setImageBitmap(bitmap);
+//    }
 }

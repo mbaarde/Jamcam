@@ -85,8 +85,6 @@ public class ImageList extends AppCompatActivity {
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.image_list_activity);
 
-        getWindow().getDecorView().setBackgroundColor(Color.rgb(8, 208, 193));
-
         callbackManager = CallbackManager.Factory.create();
         shareDialog = new ShareDialog(this);
 
@@ -271,15 +269,6 @@ public class ImageList extends AppCompatActivity {
             return;
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    public void encodeBitmap(Bitmap bitmap){  // your bitmap
-        ByteArrayOutputStream bs = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 40, bs);
-        Intent intent = new Intent(ImageList.this, ProcessedActivity.class);
-        intent.putExtra("byteArray", bs.toByteArray()); //Image
-        intent.putExtra("detections", "from ImageList");
-        startActivity(intent);
     }
 
     @Override

@@ -5,7 +5,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,7 +14,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -23,9 +21,7 @@ import com.example.user.jamcam.Helper.InternetCheck;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.ml.vision.FirebaseVision;
-import com.google.firebase.ml.vision.cloud.FirebaseVisionCloudDetectorOptions;
 import com.google.firebase.ml.vision.cloud.label.FirebaseVisionCloudLabel;
-import com.google.firebase.ml.vision.cloud.label.FirebaseVisionCloudLabelDetector;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.label.FirebaseVisionLabel;
 import com.google.firebase.ml.vision.label.FirebaseVisionLabelDetector;
@@ -73,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
         }
         printKeyHash();
 
-        cameraView = (CameraView)findViewById(R.id.camera_view);
-        btnDetect = (ImageButton)findViewById(R.id.btn_detect);
+        cameraView = (CameraView) findViewById(R.id.camera_view);
+        btnDetect = (ImageButton) findViewById(R.id.btn_detect);
 
         waitingDialog = new SpotsDialog.Builder()
                 .setContext(this)
@@ -113,19 +109,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 cameraView.start();
                 cameraView.captureImage();
-                }
+            }
 
         });
     }
 
     private void printKeyHash() {
-        try{
+        try {
             PackageInfo info = getPackageManager().getPackageInfo("com.example.user.jamcam",
                     PackageManager.GET_SIGNATURES);
-            for(Signature signature : info.signatures){
+            for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-                Log.d("KeyHash", Base64.encodeToString(md.digest(),Base64.DEFAULT));
+                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -166,25 +162,25 @@ public class MainActivity extends AppCompatActivity {
 //                            });
 //                }
 //                else{
-                    FirebaseVisionLabelDetectorOptions options =
-                            new FirebaseVisionLabelDetectorOptions.Builder()
-                                    .setConfidenceThreshold(0.8f) //Get highest confidence threshold
-                                    .build();
-                    FirebaseVisionLabelDetector detector = FirebaseVision.getInstance().getVisionLabelDetector(options);
+                FirebaseVisionLabelDetectorOptions options =
+                        new FirebaseVisionLabelDetectorOptions.Builder()
+                                .setConfidenceThreshold(0.8f) //Get highest confidence threshold
+                                .build();
+                FirebaseVisionLabelDetector detector = FirebaseVision.getInstance().getVisionLabelDetector(options);
 
-                    detector.detectInImage(image)
-                            .addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionLabel>>() {
-                                @Override
-                                public void onSuccess(List<FirebaseVisionLabel> firebaseVisionLabels) {
-                                    processDataResult(firebaseVisionLabels, bitmap);
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d("EDMTERROR",e.getMessage());
-                                }
-                            });
+                detector.detectInImage(image)
+                        .addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionLabel>>() {
+                            @Override
+                            public void onSuccess(List<FirebaseVisionLabel> firebaseVisionLabels) {
+                                processDataResult(firebaseVisionLabels, bitmap);
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d("EDMTERROR", e.getMessage());
+                            }
+                        });
 //                }
             }
 
@@ -192,39 +188,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void processDataResultCloud(List<FirebaseVisionCloudLabel> firebaseVisionCloudLabels) {
-        for(FirebaseVisionCloudLabel label : firebaseVisionCloudLabels)
-        {
-            Toast.makeText(this,"Cloud result: "+ label.getLabel(),Toast.LENGTH_SHORT).show();
+        for (FirebaseVisionCloudLabel label : firebaseVisionCloudLabels) {
+            Toast.makeText(this, "Cloud result: " + label.getLabel(), Toast.LENGTH_SHORT).show();
         }
 
-        if(waitingDialog.isShowing())
-        waitingDialog.dismiss();
+        if (waitingDialog.isShowing())
+            waitingDialog.dismiss();
     }
 
-    private void processDataResult(List<FirebaseVisionLabel>  firebaseVisionLabels, Bitmap bitmap) {
+    private void processDataResult(List<FirebaseVisionLabel> firebaseVisionLabels, Bitmap bitmap) {
         String detection = "";
         int ctr = 0;
-        for(FirebaseVisionLabel label : firebaseVisionLabels)
-        {
+        for (FirebaseVisionLabel label : firebaseVisionLabels) {
 //            Toast.makeText(this,"Device result: "+ label.getLabel(),Toast.LENGTH_SHORT).show();
-            if(ctr > 0){
+            if (ctr > 0) {
                 detection = detection + ", ";
             }
             detection = detection + label.getLabel();
             ctr++;
         }
 
-        if(detection.equals("")){
-            detection = "Image cannot be identified. Try again.";
+        if (detection.equals("")) {
+            detection = "Image cannot be identified";
         }
 
-        if(waitingDialog.isShowing())
-        waitingDialog.dismiss();
+        if (waitingDialog.isShowing())
+            waitingDialog.dismiss();
 
         encodeBitmap(bitmap, detection);
     }
 
-    public void encodeBitmap(Bitmap bitmap, String detection){  // your bitmap
+    public void encodeBitmap(Bitmap bitmap, String detection) {  // your bitmap
         ByteArrayOutputStream bs = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 40, bs);
         Intent intent = new Intent(MainActivity.this, ProcessedActivity.class);

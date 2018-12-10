@@ -28,11 +28,10 @@ public class ProcessedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_processed);
 
-        getWindow().getDecorView().setBackgroundColor(Color.rgb(8, 208, 193));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window w = getWindow(); // in Activity's onCreate() for instance
-            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            Window w = getWindow(); // in Activity's onCreate() for instance
+//            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+//        }
 
         imageView = findViewById(R.id.imageView2);
         textView = findViewById(R.id.textView);
@@ -83,13 +82,9 @@ public class ProcessedActivity extends AppCompatActivity {
         retryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//
-//                //(2) To start a new activity, the startActivity function should be called
-//                //    that is found in the MainActivity.
-                ProcessedActivity.this.startActivity(intent);
-
+//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                ProcessedActivity.this.startActivity(intent);
+                finish();
             }
         });
     }
