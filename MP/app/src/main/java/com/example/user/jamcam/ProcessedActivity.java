@@ -38,8 +38,6 @@ public class ProcessedActivity extends AppCompatActivity {
         button = findViewById(R.id.button);
         retryBtn = findViewById(R.id.button2);
 
-        textView.setTextColor(Color.BLACK);
-
         sqLiteHelper = new SQLiteHelper(this, "ImageDB.sqlite", null, 1);
 
         sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS IMAGES(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, image BLOB)");
