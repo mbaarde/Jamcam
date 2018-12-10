@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -83,6 +84,8 @@ public class ImageList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.image_list_activity);
+
+        getWindow().getDecorView().setBackgroundColor(Color.rgb(8, 208, 193));
 
         callbackManager = CallbackManager.Factory.create();
         shareDialog = new ShareDialog(this);
@@ -176,7 +179,9 @@ public class ImageList extends AppCompatActivity {
 
         imageViewFood = (ImageView) dialog.findViewById(R.id.imageViewFood);
         final EditText edtName = (EditText) dialog.findViewById(R.id.edtName);
-        Button btnUpdate = (Button) dialog.findViewById(R.id.btnUpdate);
+        final Button btnUpdate = (Button) dialog.findViewById(R.id.btnUpdate);
+
+        btnUpdate.setTextColor(Color.BLACK);
 
         // set width for dialog
         int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
@@ -194,6 +199,7 @@ public class ImageList extends AppCompatActivity {
                             edtName.getText().toString().trim(),
                             position
                     );
+
                     dialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Update successful", Toast.LENGTH_SHORT).show();
                 }
@@ -211,6 +217,7 @@ public class ImageList extends AppCompatActivity {
         dialogDelete.setTitle("Warning!!");
         dialogDelete.setMessage("Are you sure you want to this delete?");
         dialogDelete.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 try {
@@ -223,13 +230,17 @@ public class ImageList extends AppCompatActivity {
             }
         });
 
+
         dialogDelete.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+
             }
         });
+
         dialogDelete.show();
+
     }
 
     private void updateFoodList() {

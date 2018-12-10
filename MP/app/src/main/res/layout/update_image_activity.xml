@@ -37,7 +37,9 @@
             android:layout_marginTop="38dp"
             android:ems="10"
             android:hint="Name"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:backgroundTint="@color/colorPrimary"
+            android:textCursorDrawable="@drawable/color_cursor"/>
 
         <Button
             android:id="@+id/btnUpdate"
@@ -49,7 +51,7 @@
             android:layout_marginLeft="0dp"
             android:layout_marginStart="0dp"
             android:layout_marginTop="45dp"
-            android:background="#265dc4"
+            android:background="#08d0c1"
             android:text="Update"
             android:textColor="#ffffff" />
 

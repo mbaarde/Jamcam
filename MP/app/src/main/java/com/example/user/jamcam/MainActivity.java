@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.user.jamcam.Helper.InternetCheck;
@@ -46,7 +47,7 @@ import dmax.dialog.SpotsDialog;
 public class MainActivity extends AppCompatActivity {
 
     CameraView cameraView;
-    Button btnDetect;
+    ImageButton btnDetect;
     android.app.AlertDialog waitingDialog;
 
     @Override
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         printKeyHash();
 
         cameraView = (CameraView)findViewById(R.id.camera_view);
-        btnDetect = (Button)findViewById(R.id.btn_detect);
+        btnDetect = (ImageButton)findViewById(R.id.btn_detect);
 
         waitingDialog = new SpotsDialog.Builder()
                 .setContext(this)
