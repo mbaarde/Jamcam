@@ -43,7 +43,7 @@
 
         <!--BAARDE-->
         <provider
-            android:authorities="com.facebook.app.FacebookContentProvider11722962929391026"
+            android:authorities="com.facebook.app.FacebookContentProvider1172296292939102"
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true"
             />
