@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Lens</string>
 
-    <string name="facebook_app_id">624541377960796</string>
-    <string name="facebook_login_protocol_scheme">fb624541377960796</string>
+    <!--<string name="facebook_app_id">624541377960796</string>-->
+    <!--<string name="facebook_login_protocol_scheme">fb624541377960796</string>-->
 
     <!--BAARDE-->
-    <!--<string name="facebook_app_id">1172296292939102</string>-->
-    <!--<string name="facebook_login_protocol_scheme">fb1172296292939102</string>-->
+    <string name="facebook_app_id">1172296292939102</string>
+    <string name="facebook_login_protocol_scheme">fb1172296292939102</string>
 </resources>

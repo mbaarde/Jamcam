@@ -35,18 +35,18 @@
         <activity android:name=".MenuActivity"></activity>
         <activity android:name=".ImageList"></activity>
 
-        <provider
-            android:authorities="com.facebook.app.FacebookContentProvider624541377960796"
-            android:name="com.facebook.FacebookContentProvider"
-            android:exported="true"
-            />
-
-        <!--BAARDE-->
         <!--<provider-->
-            <!--android:authorities="com.facebook.app.FacebookContentProvider11722962929391026"-->
+            <!--android:authorities="com.facebook.app.FacebookContentProvider624541377960796"-->
             <!--android:name="com.facebook.FacebookContentProvider"-->
             <!--android:exported="true"-->
             <!--/>-->
+
+        <!--BAARDE-->
+        <provider
+            android:authorities="com.facebook.app.FacebookContentProvider11722962929391026"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"
+            />
     </application>
 
 </manifest>
